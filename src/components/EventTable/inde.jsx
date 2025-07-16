@@ -1,5 +1,6 @@
 import React from "react";
 import { FaEdit, FaTrash } from "react-icons/fa";
+import { STRINGS } from "../../constant/strings";
 
 export default function EventTable({ events, handleEdit, handleDelete }) {
   const formatDate = (date) => {
@@ -15,18 +16,7 @@ export default function EventTable({ events, handleEdit, handleDelete }) {
       <table className="min-w-full border border-gray-200 text-sm rounded-lg overflow-hidden">
         <thead className="bg-gradient-to-r from-[#8F87F1] via-[#C68EFD] to-[#E9A5F1] text-white text-left">
           <tr>
-            {[
-              "Event Name",
-              "Location",
-              "Start",
-              "End",
-              "Organizer",
-              "Type",
-              "Max",
-              "Tags",
-              "Edit",
-              "Delete",
-            ].map((head) => (
+            {STRINGS.TABLE.HEADERS.map((head) => (
               <th key={head} className="px-6 py-3 font-medium tracking-wide">
                 {head}
               </th>
@@ -85,7 +75,7 @@ export default function EventTable({ events, handleEdit, handleDelete }) {
                 colSpan="10"
                 className="text-center text-gray-500 py-6 italic"
               >
-                No events found
+                {STRINGS.TABLE.NO_EVENTS}
               </td>
             </tr>
           )}

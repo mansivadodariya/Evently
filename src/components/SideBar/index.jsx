@@ -8,21 +8,29 @@ import {
 } from "react-icons/fa";
 import { images } from "../../assets/inde";
 import { Link, useLocation } from "react-router-dom";
-import { useAuth } from "../../context/AuthContext"; // ✅ Auth Context
+import { useAuth } from "../../context/AuthContext";
+import { STRINGS } from "../../constant/strings";
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
-  const { logout, user } = useAuth(); // ✅ Get logged-in user
-
+  const { logout, user } = useAuth();
   const handleLogout = async () => {
     await logout();
     window.location.href = "/login";
   };
 
   const menuItems = [
-    { name: "Dashboard", icon: <FaHome size={18} />, path: "/" },
-    { name: "Events", icon: <FaCalendarAlt size={18} />, path: "/events" },
+    {
+      name: STRINGS.SIDEBAR.MENU.DASHBOARD,
+      icon: <FaHome size={18} />,
+      path: "/",
+    },
+    {
+      name: STRINGS.SIDEBAR.MENU.EVENTS,
+      icon: <FaCalendarAlt size={18} />,
+      path: "/events",
+    },
   ];
 
   const closeSidebar = () => setIsOpen(false);
@@ -55,7 +63,7 @@ const Sidebar = () => {
       >
         <div className="flex items-center gap-2 text-2xl font-bold text-purple-800 mb-10">
           <img src={images.logo} alt="Logo" className="w-10 aspect-square" />
-          <span>Evently</span>
+          <span>{STRINGS.APP.NAME}</span>
         </div>
 
         <nav className="flex-1 space-y-4">
@@ -81,14 +89,16 @@ const Sidebar = () => {
             className="flex items-center gap-3 px-4 py-2 rounded-xl cursor-pointer text-red-500 hover:bg-red-100"
           >
             <FaSignOutAlt size={18} />
-            <span>Logout</span>
+            <span>{STRINGS.APP.LOGOUT}</span>
           </div>
         </nav>
 
         <div className="hidden md:flex items-center gap-2 mt-auto">
           <FaUserCircle size={36} className="text-purple-900" />
           <span className="text-purple-900 font-semibold">
-            {user?.displayName || user?.email?.split("@")[0] || "Guest"}
+            {user?.displayName ||
+              user?.email?.split("@")[0] ||
+              STRINGS.APP.GUEST}
           </span>
         </div>
       </div>

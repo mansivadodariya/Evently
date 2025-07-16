@@ -1,7 +1,7 @@
-// src/pages/AuthPage.js
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+import { STRINGS } from "../../constant/strings";
 
 export default function AuthPage() {
   const { signup, login } = useAuth();
@@ -21,7 +21,7 @@ export default function AuthPage() {
       } else {
         await signup(email, password, username);
       }
-      navigate("/"); // ✅ Redirect to Dashboard
+      navigate("/");
     } catch (err) {
       setError(err.message);
     }
@@ -31,7 +31,7 @@ export default function AuthPage() {
     <div className="flex justify-center items-center h-screen bg-gray-100">
       <div className="bg-white shadow-md rounded-lg p-6 w-80">
         <h2 className="text-xl font-bold mb-4 text-center text-purple-700">
-          {isLogin ? "Login" : "Sign Up"}
+          {isLogin ? STRINGS.AUTH.LOGIN : STRINGS.AUTH.SIGNUP}
         </h2>
         {error && (
           <p className="text-red-500 text-sm text-center mb-2">{error}</p>
@@ -40,7 +40,7 @@ export default function AuthPage() {
           {!isLogin && (
             <input
               type="text"
-              placeholder="Username"
+              placeholder={STRINGS.PLACEHOLDERS.USERNAME}
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               className="border rounded w-full p-2"
@@ -49,7 +49,7 @@ export default function AuthPage() {
           )}
           <input
             type="email"
-            placeholder="Email"
+            placeholder={STRINGS.PLACEHOLDERS.EMAIL}
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className="border rounded w-full p-2"
@@ -57,7 +57,7 @@ export default function AuthPage() {
           />
           <input
             type="password"
-            placeholder="Password"
+            placeholder={STRINGS.PLACEHOLDERS.PASSWORD}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             className="border rounded w-full p-2"
@@ -67,7 +67,9 @@ export default function AuthPage() {
             type="submit"
             className="w-full bg-purple-600 text-white py-2 rounded hover:bg-purple-700 transition"
           >
-            {isLogin ? "Login" : "Sign Up"}
+            {isLogin
+              ? STRINGS.AUTH.SWITCH_TO_SIGNUP
+              : STRINGS.AUTH.SWITCH_TO_LOGIN}
           </button>
         </form>
         <p className="text-sm text-center mt-3">
@@ -76,7 +78,7 @@ export default function AuthPage() {
             className="text-purple-600 ml-1"
             onClick={() => setIsLogin(!isLogin)}
           >
-            {isLogin ? "Sign Up" : "Login"}
+            {isLogin ? STRINGS.AUTH.SIGNUP : STRINGS.AUTH.LOGIN}
           </button>
         </p>
       </div>

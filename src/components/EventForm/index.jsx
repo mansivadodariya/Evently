@@ -13,23 +13,23 @@ import {
 } from "@mui/material";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import dayjs from "dayjs";
+import { STRINGS } from "../../constant/strings";
 
-// ✅ Validation Schema
 const validationSchema = Yup.object({
-  name: Yup.string().required("Event Name is required"),
-  description: Yup.string().required("Description is required"),
-  location: Yup.string().required("Location is required"),
-  startDate: Yup.date().required("Start Date & Time is required"),
+  name: Yup.string().required(STRINGS.VALIDATION.NAME_REQUIRED),
+  description: Yup.string().required(STRINGS.VALIDATION.DESCRIPTION_REQUIRED),
+  location: Yup.string().required(STRINGS.VALIDATION.LOCATION_REQUIRED),
+  startDate: Yup.date().required(STRINGS.VALIDATION.START_REQUIRED),
   endDate: Yup.date()
-    .min(Yup.ref("startDate"), "End Date must be after Start Date")
-    .required("End Date & Time is required"),
-  organizer: Yup.string().required("Organizer Name is required"),
-  type: Yup.string().required("Event Type is required"),
+    .min(Yup.ref("startDate"), STRINGS.VALIDATION.END_AFTER_START)
+    .required(STRINGS.VALIDATION.END_REQUIRED),
+  organizer: Yup.string().required(STRINGS.VALIDATION.ORGANIZER_REQUIRED),
+  type: Yup.string().required(STRINGS.VALIDATION.TYPE_REQUIRED),
   maxAttendees: Yup.number()
-    .positive("Must be positive")
-    .integer("Must be an integer")
-    .required("Maximum attendees required"),
-  tags: Yup.array().min(1, "At least 1 tag required"),
+    .positive(STRINGS.VALIDATION.MAX_ATTENDEES_POSITIVE)
+    .integer(STRINGS.VALIDATION.MAX_ATTENDEES_INTEGER)
+    .required(STRINGS.VALIDATION.MAX_ATTENDEES_REQUIRED),
+  tags: Yup.array().min(1, STRINGS.VALIDATION.TAG_REQUIRED),
 });
 
 export default function EventForm({ initialValues, onSubmit, onCancel }) {
@@ -51,7 +51,6 @@ export default function EventForm({ initialValues, onSubmit, onCancel }) {
     },
   });
 
-  // Handle Tags
   const handleAddTag = (e) => {
     if (e.key === "Enter" && e.target.value.trim() !== "") {
       formik.setFieldValue("tags", [...formik.values.tags, e.target.value]);
@@ -83,7 +82,7 @@ export default function EventForm({ initialValues, onSubmit, onCancel }) {
       }}
     >
       <TextField
-        label="Event Name"
+        label={STRINGS.PLACEHOLDERS.EVENT_NAME}
         name="name"
         value={formik.values.name}
         onChange={formik.handleChange}
@@ -92,7 +91,7 @@ export default function EventForm({ initialValues, onSubmit, onCancel }) {
       />
 
       <TextField
-        label="Description"
+        label={STRINGS.PLACEHOLDERS.DESCRIPTION}
         name="description"
         multiline
         rows={3}
@@ -103,7 +102,7 @@ export default function EventForm({ initialValues, onSubmit, onCancel }) {
       />
 
       <TextField
-        label="Location"
+        label={STRINGS.PLACEHOLDERS.LOCATION}
         name="location"
         value={formik.values.location}
         onChange={formik.handleChange}
@@ -112,7 +111,7 @@ export default function EventForm({ initialValues, onSubmit, onCancel }) {
       />
 
       <DateTimePicker
-        label="Start Date & Time"
+        label={STRINGS.PLACEHOLDERS.START_DATE}
         value={formik.values.startDate}
         onChange={(value) => formik.setFieldValue("startDate", value)}
         slotProps={{
@@ -125,7 +124,7 @@ export default function EventForm({ initialValues, onSubmit, onCancel }) {
       />
 
       <DateTimePicker
-        label="End Date & Time"
+        label={STRINGS.PLACEHOLDERS.END_DATE}
         value={formik.values.endDate}
         onChange={(value) => formik.setFieldValue("endDate", value)}
         slotProps={{
@@ -137,7 +136,7 @@ export default function EventForm({ initialValues, onSubmit, onCancel }) {
       />
 
       <TextField
-        label="Organizer Name"
+        label={STRINGS.PLACEHOLDERS.ORGANIZER}
         name="organizer"
         value={formik.values.organizer}
         onChange={formik.handleChange}
@@ -146,7 +145,7 @@ export default function EventForm({ initialValues, onSubmit, onCancel }) {
       />
 
       <FormControl>
-        <InputLabel>Event Type</InputLabel>
+        <InputLabel>{STRINGS.LABELS.EVENT_TYPE}</InputLabel>
         <Select
           name="type"
           value={formik.values.type}
@@ -158,7 +157,7 @@ export default function EventForm({ initialValues, onSubmit, onCancel }) {
       </FormControl>
 
       <TextField
-        label="Maximum Attendees"
+        label={STRINGS.PLACEHOLDERS.MAX_ATTENDEES}
         name="maxAttendees"
         type="number"
         value={formik.values.maxAttendees}
@@ -170,7 +169,7 @@ export default function EventForm({ initialValues, onSubmit, onCancel }) {
       />
 
       <TextField
-        label="Press Enter to Add Tags"
+        label={STRINGS.PLACEHOLDERS.TAG_INPUT}
         onKeyDown={handleAddTag}
       />
       <Box sx={{ display: "flex", gap: 1, flexWrap: "wrap" }}>
@@ -196,7 +195,7 @@ export default function EventForm({ initialValues, onSubmit, onCancel }) {
           variant="outlined"
           color="secondary"
         >
-          Cancel
+          {STRINGS.MODAL.CANCEL}
         </Button>
         <Button
           type="submit"
@@ -206,7 +205,7 @@ export default function EventForm({ initialValues, onSubmit, onCancel }) {
               "linear-gradient(to right, #8F87F1, #C68EFD, #E9A5F1)",
           }}
         >
-          {initialValues ? "Update Event" : "Add Event"}
+          {initialValues ? STRINGS.LABELS.UPDATE_EVENT : STRINGS.LABELS.ADD_EVENT}
         </Button>
       </Box>
     </Box>

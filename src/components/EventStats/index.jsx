@@ -1,5 +1,6 @@
 import React from "react";
 import { FaCalendarAlt, FaGlobe, FaMapMarkerAlt } from "react-icons/fa";
+import { STRINGS } from "../../constants/strings";
 
 export default function EventStats({ events }) {
   const total = events.length;
@@ -8,19 +9,19 @@ export default function EventStats({ events }) {
 
   const stats = [
     {
-      title: "Total Events",
+      title: STRINGS.STATS.TOTAL,
       count: total,
       icon: <FaCalendarAlt className="text-3xl" />,
       gradient: "from-[#8F87F1] via-[#C68EFD] to-[#E9A5F1]",
     },
     {
-      title: "Online Events",
+      title: STRINGS.STATS.ONLINE,
       count: online,
       icon: <FaGlobe className="text-3xl" />,
       gradient: "from-[#C68EFD] via-[#E9A5F1] to-[#FED2E2]",
     },
     {
-      title: "Offline Events",
+      title: STRINGS.STATS.OFFLINE,
       count: offline,
       icon: <FaMapMarkerAlt className="text-3xl" />,
       gradient: "from-[#FED2E2] via-[#E9A5F1] to-[#8F87F1]",

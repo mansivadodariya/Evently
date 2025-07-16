@@ -1,11 +1,8 @@
 import React, { useState } from "react";
 import { FaTimes } from "react-icons/fa";
+import { STRINGS } from "../../constant/strings";
 
-export default function EditModal({
-  editingEvent,
-  setEditingEvent,
-  handleSave,
-}) {
+export default function EditModal({ editingEvent, setEditingEvent, handleSave }) {
   if (!editingEvent) return null;
 
   const [tagInput, setTagInput] = useState("");
@@ -30,31 +27,31 @@ export default function EditModal({
 
   const validateAndSave = () => {
     if (!editingEvent.name.trim()) {
-      setError("Event Name is required!");
+      setError(STRINGS.VALIDATION.NAME_REQUIRED);
       return;
     }
     if (!editingEvent.location.trim()) {
-      setError("Location is required!");
+      setError(STRINGS.VALIDATION.LOCATION_REQUIRED);
       return;
     }
     if (!editingEvent.organizer.trim()) {
-      setError("Organizer Name is required!");
+      setError(STRINGS.VALIDATION.ORGANIZER_REQUIRED);
       return;
     }
     if (!editingEvent.startDate) {
-      setError("Start Date & Time is required!");
+      setError(STRINGS.VALIDATION.START_REQUIRED);
       return;
     }
     if (!editingEvent.endDate) {
-      setError("End Date & Time is required!");
+      setError(STRINGS.VALIDATION.END_REQUIRED);
       return;
     }
     if (!editingEvent.maxAttendees || editingEvent.maxAttendees <= 0) {
-      setError("Maximum Attendees must be greater than 0!");
+      setError(STRINGS.VALIDATION.MAX_ATTENDEES);
       return;
     }
     if (editingEvent.tags.length === 0) {
-      setError("Please add at least one tag!");
+      setError(STRINGS.VALIDATION.TAG_REQUIRED);
       return;
     }
 
@@ -67,7 +64,7 @@ export default function EditModal({
       <div className="bg-white p-6 rounded-lg w-96 shadow-lg">
         <div className="flex justify-between items-center mb-4">
           <h3 className="text-lg font-bold text-[#8F87F1]">
-            {editingEvent.id ? "Edit Event" : "Add Event"}
+            {editingEvent.id ? STRINGS.MODAL.EDIT_TITLE : STRINGS.MODAL.ADD_TITLE}
           </h3>
 
           <button
@@ -85,7 +82,7 @@ export default function EditModal({
         <div className="space-y-3">
           <input
             type="text"
-            placeholder="Event Name"
+            placeholder={STRINGS.PLACEHOLDERS.EVENT_NAME}
             value={editingEvent.name}
             onChange={(e) =>
               setEditingEvent((prev) => ({ ...prev, name: e.target.value }))
@@ -94,7 +91,7 @@ export default function EditModal({
           />
           <input
             type="text"
-            placeholder="Location"
+            placeholder={STRINGS.PLACEHOLDERS.LOCATION}
             value={editingEvent.location}
             onChange={(e) =>
               setEditingEvent((prev) => ({ ...prev, location: e.target.value }))
@@ -103,7 +100,7 @@ export default function EditModal({
           />
           <input
             type="text"
-            placeholder="Organizer"
+            placeholder={STRINGS.PLACEHOLDERS.ORGANIZER}
             value={editingEvent.organizer}
             onChange={(e) =>
               setEditingEvent((prev) => ({
@@ -147,7 +144,7 @@ export default function EditModal({
           </select>
           <input
             type="number"
-            placeholder="Max Attendees"
+            placeholder={STRINGS.PLACEHOLDERS.MAX_ATTENDEES}
             value={editingEvent.maxAttendees}
             onChange={(e) =>
               setEditingEvent((prev) => ({
@@ -160,12 +157,12 @@ export default function EditModal({
 
           <div>
             <label className="block text-sm font-medium text-gray-600 mb-1">
-              Tags
+              {STRINGS.LABELS.TAGS}
             </label>
             <div className="flex gap-2 mb-2">
               <input
                 type="text"
-                placeholder="Add a tag"
+                placeholder={STRINGS.PLACEHOLDERS.TAG_INPUT}
                 value={tagInput}
                 onChange={(e) => setTagInput(e.target.value)}
                 className="flex-1 border rounded px-3 py-2"
@@ -175,7 +172,7 @@ export default function EditModal({
                 onClick={handleAddTag}
                 className="bg-[#8F87F1] text-white px-3 py-2 rounded hover:bg-[#6f67d9]"
               >
-                Add
+                {STRINGS.MODAL.ADD_TAG}
               </button>
             </div>
             <div className="flex flex-wrap gap-2">
@@ -202,13 +199,13 @@ export default function EditModal({
             className="bg-gray-200 px-4 py-2 rounded hover:bg-gray-300"
             onClick={() => setEditingEvent(null)}
           >
-            Cancel
+            {STRINGS.MODAL.CANCEL}
           </button>
           <button
             className="bg-[#8F87F1] text-white px-4 py-2 rounded hover:bg-[#6f67d9]"
             onClick={validateAndSave}
           >
-            Save
+            {STRINGS.MODAL.SAVE}
           </button>
         </div>
       </div>

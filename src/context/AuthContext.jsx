@@ -6,7 +6,7 @@ import {
   onAuthStateChanged,
   updateProfile,
 } from "firebase/auth";
-import { auth } from "../firebase"; // ✅ Import your firebase config
+import { auth } from "../firebase";
 
 const AuthContext = createContext();
 
@@ -16,29 +16,25 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // ✅ Signup with Username
   const signup = async (email, password, username) => {
     const userCredential = await createUserWithEmailAndPassword(
       auth,
       email,
       password
     );
-    await updateProfile(userCredential.user, { displayName: username }); // store username
+    await updateProfile(userCredential.user, { displayName: username });
     setUser({ ...userCredential.user });
   };
 
-  // ✅ Login
   const login = async (email, password) => {
     await signInWithEmailAndPassword(auth, email, password);
   };
 
-  // ✅ Logout
   const logout = async () => {
     await signOut(auth);
     setUser(null);
   };
 
-  // ✅ Check Auth State (Persist login)
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);

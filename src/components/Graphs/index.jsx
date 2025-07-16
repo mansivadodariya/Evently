@@ -9,6 +9,7 @@ import {
   CartesianGrid,
   Legend,
 } from "recharts";
+import { STRINGS } from "../../constant/strings";
 
 export default function DashboardStatsWithGraph({ events = [] }) {
   const total = events?.length || 0;
@@ -26,8 +27,6 @@ export default function DashboardStatsWithGraph({ events = [] }) {
     events.forEach((event) => {
       try {
         if (!event?.startDate) return;
-
-        // ✅ Convert Firestore Timestamp to JS Date
         const date = event.startDate?.toDate
           ? event.startDate.toDate()
           : new Date(event.startDate);
@@ -48,22 +47,22 @@ export default function DashboardStatsWithGraph({ events = [] }) {
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-10">
       <div className="flex flex-col gap-4">
         <div className="p-4 rounded-xl text-center text-[#8F87F1] font-bold border border-[#8F87F1] bg-white shadow-md hover:bg-[#f3f3ff] transition cursor-pointer">
-          Total Events <br />
+          {STRINGS.STATS.TOTAL} <br />
           <span className="text-2xl text-[#6f67d9]">{total}</span>
         </div>
         <div className="p-4 rounded-xl text-center text-white font-bold shadow-md bg-gradient-to-r from-[#8F87F1] via-[#6f67d9] to-[#8F87F1] hover:opacity-90 transition cursor-pointer">
-          Online Events <br />
+          {STRINGS.STATS.ONLINE} <br />
           <span className="text-2xl font-extrabold">{online}</span>
         </div>
         <div className="p-4 rounded-xl text-center text-white font-bold shadow-md bg-gradient-to-r from-[#E9A5F1] via-[#C68EFD] to-[#8F87F1] hover:opacity-90 transition cursor-pointer">
-          Offline Events <br />
+          {STRINGS.STATS.OFFLINE} <br />
           <span className="text-2xl font-extrabold">{offline}</span>
         </div>
       </div>
 
       <div className="lg:col-span-2 bg-white rounded-xl shadow-md p-4">
         <h3 className="text-lg font-bold text-[#8F87F1] mb-2">
-          Weekly Events Trend (Online vs Offline)
+          {STRINGS.STATS.WEEKLY_TREND}
         </h3>
         <ResponsiveContainer width="100%" height={250}>
           <AreaChart data={data}>

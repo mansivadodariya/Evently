@@ -1,4 +1,3 @@
-// src/context/context.jsx
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { db, auth } from "../firebase";
 import {
@@ -31,7 +30,7 @@ export function EventsProvider({ children }) {
             const data = docSnap.data();
 
             return {
-              id: docSnap.id, // ✅ ENSURE FIRESTORE ID IS ALWAYS INCLUDED
+              id: docSnap.id,
               name: data.name || "",
               location: data.location || "",
               organizer: data.organizer || "",

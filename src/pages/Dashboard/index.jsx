@@ -1,4 +1,3 @@
-// src/pages/Dashboard/index.jsx
 import React, { useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import SearchFilter from "../../components/SearchFilter";
@@ -6,6 +5,7 @@ import EventTable from "../../components/EventTable/inde";
 import EditModal from "../../components/EditModal";
 import DashboardStatsWithGraph from "../../components/Graphs";
 import { useEvents } from "../../context/context";
+import { STRINGS } from "../../constant/strings";
 
 export default function Dashboard() {
   const { events, addEvent, editEvent, deleteEvent, loading } = useEvents();
@@ -16,15 +16,13 @@ export default function Dashboard() {
   const [newEventMode, setNewEventMode] = useState(false);
 
   const handleEdit = (event) => {
-    console.log("📝 Editing existing event:", event);
-    setEditingEvent({ ...event }); // existing event already has Firestore ID
+    setEditingEvent({ ...event });
     setNewEventMode(false);
   };
 
   const handleAddEvent = () => {
-    console.log("➕ Adding new event");
     setEditingEvent({
-      id: null, // ✅ Ensure new events have id:null (important)
+      id: null,
       name: "",
       location: "",
       organizer: "",
@@ -39,7 +37,7 @@ export default function Dashboard() {
 
   const handleSave = () => {
     if (!editingEvent.name.trim()) {
-      alert("Event name is required!");
+      alert(STRINGS.ALERTS.NAME_REQUIRED);
       return;
     }
 
@@ -48,8 +46,7 @@ export default function Dashboard() {
       addEvent(eventData);
     } else {
       if (!editingEvent.id) {
-        console.error("❌ Tried editing without ID:", editingEvent);
-        alert("Cannot edit this event. Please refresh the page.");
+        alert(STRINGS.ALERTS.EDIT_ID_MISSING);
         return;
       }
       editEvent(editingEvent);
@@ -68,11 +65,13 @@ export default function Dashboard() {
     return matchesSearch && matchesFilter;
   });
 
-  if (loading) return <p className="text-center mt-6">Loading events...</p>;
+  if (loading) return <p className="text-center mt-6">{STRINGS.LOADING}</p>;
 
   return (
     <div className="relative bg-white shadow-md rounded-lg p-6 overflow-y-auto">
-      <h2 className="text-2xl font-bold text-[#8F87F1] mb-4">All Events</h2>
+      <h2 className="text-2xl font-bold text-[#8F87F1] mb-4">
+        {STRINGS.LABELS.ALL_EVENTS}
+      </h2>
       <DashboardStatsWithGraph events={events} />
 
       <SearchFilter

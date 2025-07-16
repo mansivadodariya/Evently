@@ -4,6 +4,7 @@ import SearchFilter from "../../components/SearchFilter";
 import EventTable from "../../components/EventTable/inde";
 import EditModal from "../../components/EditModal";
 import { useEvents } from "../../context/context";
+import { STRINGS } from "../../constant/strings";
 
 export default function EventsPage() {
   const { events, addEvent, editEvent, deleteEvent, loading } = useEvents();
@@ -14,7 +15,7 @@ export default function EventsPage() {
 
   const handleDelete = (id) => {
     if (!id) return;
-    if (window.confirm("Are you sure you want to delete this event?")) {
+    if (window.confirm(STRINGS.ALERTS.CONFIRM_DELETE)) {
       deleteEvent(id);
     }
   };
@@ -40,12 +41,12 @@ export default function EventsPage() {
 
   const handleSave = () => {
     if (!editingEvent.name.trim()) {
-      alert("Event name is required!");
+      alert(STRINGS.ALERTS.NAME_REQUIRED);
       return;
     }
 
     if (newEventMode) {
-      const { id, ...newEventData } = editingEvent; // ✅ Ignore local null id
+      const { id, ...newEventData } = editingEvent;
       addEvent(newEventData);
     } else {
       if (!editingEvent.id) {
@@ -71,12 +72,14 @@ export default function EventsPage() {
 
   if (loading)
     return (
-      <div className="text-center py-10 text-gray-500">Loading events...</div>
+      <div className="text-center py-10 text-gray-500"> {STRINGS.LOADING}</div>
     );
 
   return (
     <div className="relative bg-white shadow-md rounded-lg p-6 overflow-y-auto">
-      <h2 className="text-2xl font-bold text-[#8F87F1] mb-4">Manage Events</h2>
+      <h2 className="text-2xl font-bold text-[#8F87F1] mb-4">
+        {STRINGS.LABELS.MANAGE_EVENTS}
+      </h2>
 
       <SearchFilter
         searchTerm={searchTerm}

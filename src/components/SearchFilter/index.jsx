@@ -1,5 +1,6 @@
 import React from "react";
 import { FaSearch } from "react-icons/fa";
+import { STRINGS } from "../../constant/strings";
 
 export default function SearchFilter({
   searchTerm,
@@ -13,7 +14,7 @@ export default function SearchFilter({
         <FaSearch className="absolute left-3 top-3 text-gray-400" />
         <input
           type="text"
-          placeholder="Search by name or location..."
+          placeholder={STRINGS.SEARCH_FILTER.PLACEHOLDER}
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           className="w-full pl-10 pr-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C68EFD]"
@@ -21,7 +22,7 @@ export default function SearchFilter({
       </div>
 
       <div className="flex gap-2">
-        {["All", "Online", "Offline"].map((type) => (
+        {STRINGS.SEARCH_FILTER.FILTERS.map((type) => (
           <button
             key={type}
             onClick={() => setFilterType(type)}
