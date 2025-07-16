@@ -1,0 +1,18 @@
+
+---
+
+## 🛠 Tech Stack
+- **React 18** + **React Router**  
+- **Formik + Yup** (form validation)  
+- **Material UI (MUI)** + **TailwindCSS** (UI components & styling)  
+- **Recharts** (graphs)  
+- **Firebase** or **LocalStorage** (data persistence)
+
+---
+
+## ⚡ Getting Started
+
+### 1️⃣ Clone the repo
+```bash
+git clone https://github.com/your-username/evently-dashboard.git
+cd evently-dashboard
