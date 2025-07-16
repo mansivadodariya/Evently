@@ -7,7 +7,7 @@ import {
   FaUserCircle,
 } from "react-icons/fa";
 import { images } from "../../assets/inde";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { STRINGS } from "../../constant/strings";
 
@@ -15,9 +15,11 @@ const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
   const { logout, user } = useAuth();
+  const navigate = useNavigate  ();
+
   const handleLogout = async () => {
     await logout();
-    window.location.href = "/login";
+    navigate("/login");
   };
 
   const menuItems = [
