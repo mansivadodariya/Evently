@@ -42,7 +42,6 @@ export function EventsProvider({ children }) {
             };
           });
 
-          console.log("🔥 Events loaded from Firestore:", eventsData);
           setEvents(eventsData);
           setLoading(false);
         });
@@ -65,9 +64,8 @@ export function EventsProvider({ children }) {
         collection(db, "users", user.uid, "events"),
         event
       );
-      console.log("✅ Event added with ID:", docRef.id);
     } catch (error) {
-      console.error("❌ Error adding event:", error);
+      console.error(error);
     }
   };
 
@@ -78,9 +76,8 @@ export function EventsProvider({ children }) {
     try {
       const { id, ...eventData } = event;
       await updateDoc(doc(db, "users", user.uid, "events", id), eventData);
-      console.log("✅ Event updated:", id);
     } catch (error) {
-      console.error("❌ Error updating event:", error);
+      console.error(error);
     }
   };
 
@@ -90,9 +87,8 @@ export function EventsProvider({ children }) {
 
     try {
       await deleteDoc(doc(db, "users", user.uid, "events", id));
-      console.log("✅ Event deleted:", id);
     } catch (error) {
-      console.error("❌ Error deleting event:", error);
+      console.error(error);
     }
   };
 
