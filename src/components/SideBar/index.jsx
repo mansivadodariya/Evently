@@ -42,7 +42,11 @@ const Sidebar = () => {
           <FaBars size={24} className="text-purple-900" />
         </button>
         <div className="flex items-center gap-2">
-          <FaUserCircle size={36} className="text-purple-900" />
+          <FaUserCircle
+            size={36}
+            className="text-purple-900"
+            onClick={() => window.location.reload()}
+          />
           <span className="text-purple-900 font-semibold">
             {user?.displayName || user?.email?.split("@")[0] || "Guest"}
           </span>
@@ -94,7 +98,11 @@ const Sidebar = () => {
         </nav>
 
         <div className="hidden md:flex items-center gap-2 mt-auto">
-          <FaUserCircle size={36} className="text-purple-900" />
+          <FaUserCircle
+            size={36}
+            className="text-purple-900"
+            onClick={() => window.location.reload()}
+          />
           <span className="text-purple-900 font-semibold">
             {user?.displayName ||
               user?.email?.split("@")[0] ||

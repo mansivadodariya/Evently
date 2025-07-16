@@ -37,6 +37,7 @@ export const STRINGS = {
   MODAL: {
     CANCEL: "Cancel",
     SAVE: "Save",
+    ADD_TAG: "ADD",
   },
 
   PLACEHOLDERS: {

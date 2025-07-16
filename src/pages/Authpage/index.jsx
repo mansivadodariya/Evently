@@ -67,9 +67,7 @@ export default function AuthPage() {
             type="submit"
             className="w-full bg-purple-600 text-white py-2 rounded hover:bg-purple-700 transition"
           >
-            {isLogin
-              ? STRINGS.AUTH.SWITCH_TO_SIGNUP
-              : STRINGS.AUTH.SWITCH_TO_LOGIN}
+            {isLogin ? STRINGS.AUTH.LOGIN : STRINGS.AUTH.SIGNUP}
           </button>
         </form>
         <p className="text-sm text-center mt-3">
